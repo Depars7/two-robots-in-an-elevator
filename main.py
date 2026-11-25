@@ -54,6 +54,10 @@ def write_entry(line):
     expected = line.encode("utf-8")
     with open(OUTPUT_PATH, "wb") as fh:
         fh.write(expected)
+    with open(OUTPUT_PATH, "rb") as fh:
+        written = fh.read()
+    if written != expected:
+        raise ValueError("entry.txt bytes differ from the validated line")
     os.chmod(OUTPUT_PATH, 0o644)
 
 
