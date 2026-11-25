@@ -16,6 +16,10 @@ LINE = (
 OUTPUT_DIR = "/output"
 OUTPUT_PATH = os.path.join(OUTPUT_DIR, "entry.txt")
 
+# Bounty gate, from the competition requirements: one line, 1-200 chars.
+MIN_CHARS = 1
+MAX_CHARS = 200
+
 
 def validate(line):
     """Check the bounty gate: one line, 1-200 characters.
@@ -30,9 +34,10 @@ def validate(line):
         raise ValueError("entry must have no leading or trailing whitespace")
     if not line.strip():
         raise ValueError("entry must not be only whitespace")
-    if not 1 <= len(line) <= 200:
+    if not MIN_CHARS <= len(line) <= MAX_CHARS:
         raise ValueError(
-            f"entry must be 1-200 characters, got {len(line)}"
+            f"entry must be {MIN_CHARS}-{MAX_CHARS} characters, "
+            f"got {len(line)}"
         )
     if "\n" in line or "\r" in line:
         raise ValueError("entry must be exactly one line")
